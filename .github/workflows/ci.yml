@@ -23,3 +23,9 @@ jobs:
 
       - name: Verify Node.js app
         run: node -e "console.log('Node.js app verification successful')"
+
+      - name: Deploy Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./frontend
