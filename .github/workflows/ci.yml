@@ -23,3 +23,6 @@ jobs:
 
       - name: Verify Node.js app
         run: node -e "console.log('Node.js app verification successful')"
+
+      - name: Break the pipeline intentionally
+        run: exit 1
