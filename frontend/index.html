@@ -1,0 +1,48 @@
+//Create a simple UI to add and list tasks using JavaScript
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <script>
+        async function fetchTasks() {
+            const response = await fetch('/tasks');
+            const tasks = await response.json();
+            const taskList = document.getElementById('task-list');
+            taskList.innerHTML = '';
+            tasks.forEach(task => {
+                const li = document.createElement('li');
+                li.textContent = task.title;
+                taskList.appendChild(li);
+            });
+        }
+
+        async function addTask(event) {
+            event.preventDefault();
+            const taskInput = document.getElementById('task-input');
+            const response = await fetch('/tasks', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title: taskInput.value })
+            });
+            if (response.ok) {
+                taskInput.value = '';
+                fetchTasks();
+            }
+        }
+
+        window.onload = fetchTasks;
+    </script>
+</head>
+<body>
+    <h1>Task Manager</h1>
+    <form onsubmit="addTask(event)">
+        <input type="text" id="task-input" placeholder="New task" required>
+        <button type="submit">Add Task</button>
+    </form>
+    <ul id="task-list"></ul>
+</body>
+</html>
