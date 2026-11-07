@@ -23,5 +23,3 @@ jobs:
 
       - name: Verify Node.js app
         run: node -e "console.log('Node.js app verification successful')"
-
-//test
